@@ -17,12 +17,11 @@ public final class PropertiesHelper {
 		try {
 			
 			input = new FileInputStream(classpathRoot+"/src/resources/properties/"+propertyCategory+".properties");
-			System.out.println(property+" PATH GOT "+System.getProperty("user.dir"));	
 			// load a properties file
 			prop.load(input);
 
 			// get the property value and print it out
-			System.out.println(property +" proerty value "+prop.getProperty(property));
+			System.out.println(property +" property value "+prop.getProperty(property));
 			return(prop.getProperty(property));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

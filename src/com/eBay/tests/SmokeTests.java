@@ -1,13 +1,7 @@
 package com.eBay.tests;
 
 
-import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.AndroidElement;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
+import io.appium.java_client.AppiumDriver;
 import org.testng.annotations.AfterSuite;
 
 import org.testng.annotations.BeforeMethod;
@@ -17,10 +11,13 @@ import org.testng.annotations.Test;
 import java.io.IOException;
 
 import com.eBay.runners.SetupScript;
+import com.eBay.screens.HomeScreen;
+import com.eBay.screens.NavDrawer;
+import com.eBay.screens.ResultsScreen;
+import com.eBay.screens.SignInScreen;
 
 public class SmokeTests {
-    private AndroidDriver<WebElement> driver = SetupScript.getDriver();
-
+    private AppiumDriver driver;
 
 	@BeforeSuite
     public void beforeClassTasks() throws IOException{
@@ -38,8 +35,17 @@ public class SmokeTests {
 	}
 
     @Test()
-    public void test1() {
-        
-  
+    public void smoketest() {
+    	HomeScreen.amIHere(10);
+    	//HomeScreen.swipeRight();
+    	HomeScreen.touchHome();
+    	NavDrawer.touchSignIn();
+    	SignInScreen.signIn("test21@gmail.com", "test@123");
+    	SignInScreen.amINotHere();
+    	SignInScreen.dismissGreeting();
+    	HomeScreen.amIHere(20);
+    	HomeScreen.searchText("65 inch tv");
+    	ResultsScreen.amIHere(2);
+    	ResultsScreen.touchMostExpensive();  	
     }
 }
