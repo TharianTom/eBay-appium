@@ -1,5 +1,6 @@
 package com.eBay.screens;
 
+import com.eBay.helpers.ExcelUtil;
 import com.eBay.wrappers.Element;
 import com.eBay.wrappers.Screen;
 
@@ -8,23 +9,24 @@ public final class SignInScreen extends Screen {
 		super();
 	}
 
-	static Element userNameField = new Element("com.ebay.mobile:id/edit_text_username", "id", "scrollUp");
-	static Element passwordfield = new Element("com.ebay.mobile:id/edit_text_password", "id", "scrollUp");
-	static Element signInButton = new Element("com.ebay.mobile:id/button_sign_in", "id", "scrollDown");
-	static Element loginGreeting = new Element("com.ebay.mobile:id/text_google_greeting_enroll", "id", "noScroll");
-	static Element noThanks = new Element("com.ebay.mobile:id/button_google_deny", "id", "noScroll");
+	static Element userNameField = new Element("com.ebay.mobile:id/edit_text_username", "id");
+	static Element passwordfield = new Element("com.ebay.mobile:id/edit_text_password", "id");
+	static Element signInButton = new Element("com.ebay.mobile:id/button_sign_in", "id");
+	static Element loginGreeting = new Element("com.ebay.mobile:id/text_google_greeting_enroll", "id");
+	static Element noThanks = new Element("com.ebay.mobile:id/button_google_deny", "id");
+	static Element errorMessage = new Element("//android.widget.TextView[@text='Oops, that doesn't match.']", "xpath");
 	
 	public static void amIHere(){
 		userNameField.elementPresent();
 	}
 	
-	public static void amINotHere(){
-		userNameField.waitForElementToBeAbsent(20);
+	public static void amINotHere(int timeout){
+		userNameField.waitForElementToBeAbsent(timeout);
 	}
 	
-	public static void signIn(String userName, String password){
-		userNameField.sendKeys(userName);
-		passwordfield.sendKeys(password);
+	public static void signIn(){
+		userNameField.sendKeys(ExcelUtil.getTestData("userName"));
+		passwordfield.sendKeys(ExcelUtil.getTestData("password"));
 		signInButton.clickElement();
 	}
 	
@@ -33,4 +35,5 @@ public final class SignInScreen extends Screen {
 			noThanks.clickElement();
 		}
 	}		
+	
 }

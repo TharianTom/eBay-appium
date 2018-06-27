@@ -6,9 +6,9 @@
       <class name="com.eBay.tests.SmokeTests">
         <methods>
           <include name="beforeTest"/>
-          <include name="beforeClassTasks"/>
-          <include name="smoketest"/>
           <include name="afterClassTasks"/>
+          <include name="failingTestCase"/>
+          <include name="beforeClassTasks"/>
         </methods>
       </class> <!-- com.eBay.tests.SmokeTests -->
     </classes>

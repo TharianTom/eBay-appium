@@ -6,16 +6,17 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
+import com.eBay.helpers.ExcelUtil;
 import com.eBay.wrappers.Element;
 import com.eBay.wrappers.Screen;
 
-public class ResultsScreen extends Screen{
+public final class ResultsScreen extends Screen{
 
 	public ResultsScreen() {
 		super();
 	}
-	static Element itemPrice = new Element("com.ebay.mobile:id/textview_item_price", "id", "scrollDown");
-	static Element filter = new Element("com.ebay.mobile:id/button_filter", "id", "scrollUp");
+	static Element itemPrice = new Element("com.ebay.mobile:id/textview_item_price", "id");
+	static Element filter = new Element("com.ebay.mobile:id/button_filter", "id");
 	
 	public static void amIHere(int timeout){
 		filter.waitForElementToBePresent(timeout);
@@ -33,8 +34,8 @@ public class ResultsScreen extends Screen{
 		Integer expensiveItemPrice = Collections.max(prices);
 		String expensiveItemPriceInString = NumberFormat.getNumberInstance(Locale.US).format(expensiveItemPrice);
 		expensiveItemPriceInString = "₹" + expensiveItemPriceInString; 
-		Element expensiveItem = new Element("//android.widget.TextView[@text='"+expensiveItemPriceInString+"']", "xpath", "scrollDown");
+		Element expensiveItem = new Element("//android.widget.TextView[@text='"+expensiveItemPriceInString+"']", "xpath");
 		expensiveItem.clickElement();
+		ExcelUtil.setTestData("productPrice", expensiveItemPriceInString);
 	}
-
 }

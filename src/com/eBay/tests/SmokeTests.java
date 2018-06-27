@@ -1,51 +1,68 @@
 package com.eBay.tests;
 
 
-import io.appium.java_client.AppiumDriver;
-import org.testng.annotations.AfterSuite;
 
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
-import java.io.IOException;
-
+import com.eBay.helpers.ExcelUtil;
 import com.eBay.runners.SetupScript;
 import com.eBay.screens.HomeScreen;
 import com.eBay.screens.NavDrawer;
+import com.eBay.screens.ProductDetailsScreen;
+import com.eBay.screens.QuantityUpdateScreen;
 import com.eBay.screens.ResultsScreen;
+import com.eBay.screens.ReviewOrderScreen;
 import com.eBay.screens.SignInScreen;
+import com.eBay.wrappers.BaseTest;
+import com.eBay.wrappers.TestMethodCapture;
 
-public class SmokeTests {
-    private AppiumDriver driver;
-
-	@BeforeSuite
-    public void beforeClassTasks() throws IOException{
-    	SetupScript.setUp();
-    }
-
-    @AfterSuite
-    public void afterClassTasks() {
-    	SetupScript.tearDown();
-    }
-
+@Listeners(TestMethodCapture.class)
+public final class SmokeTests extends BaseTest {
+	
 	@BeforeMethod
 	public void beforeTest() throws Exception {
 		SetupScript.setupTest();	
+		ExcelUtil.setExcelFileSheet("SmokeTests");
+		SetupScript.resetApp();
 	}
-
-    @Test()
-    public void smoketest() {
+	
+	@Test(priority = 1, description = "Checkout With Expensive TV in current results screen")
+    public void checkoutWithExpensiveItem() {
     	HomeScreen.amIHere(10);
     	//HomeScreen.swipeRight();
     	HomeScreen.touchHome();
     	NavDrawer.touchSignIn();
-    	SignInScreen.signIn("test21@gmail.com", "test@123");
-    	SignInScreen.amINotHere();
+    	SignInScreen.signIn();
+    	SignInScreen.amINotHere(20);
     	SignInScreen.dismissGreeting();
     	HomeScreen.amIHere(20);
-    	HomeScreen.searchText("65 inch tv");
+    	HomeScreen.searchText();
     	ResultsScreen.amIHere(2);
-    	ResultsScreen.touchMostExpensive();  	
+    	ResultsScreen.touchMostExpensive();  
+    	ProductDetailsScreen.amIHere(10);
+    	ProductDetailsScreen.isPriceExpected();
+    	ProductDetailsScreen.getProductName();
+    	ProductDetailsScreen.buyItem();
+    	QuantityUpdateScreen.amIHere(30);
+    	QuantityUpdateScreen.hasExpectedPrice();
+    	QuantityUpdateScreen.hasExpectedProductName();
+    	QuantityUpdateScreen.goToReview();
+    	ReviewOrderScreen.amIHere(40);
+    	ReviewOrderScreen.validateProductDetails();
     }
+	
+	@Test(priority = 2, description = "Faling Test Case")
+    public void failingTestCase() {
+    	HomeScreen.amIHere(10);
+    	//HomeScreen.swipeRight();
+    	HomeScreen.touchHome();
+    	NavDrawer.touchSignIn();
+    	SignInScreen.signIn();
+    	SignInScreen.amINotHere(20);
+    	SignInScreen.dismissGreeting();
+    	HomeScreen.amIHere(20);
+    	
+	}
 }

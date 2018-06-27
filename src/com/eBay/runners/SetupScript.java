@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import com.eBay.helpers.PropertiesHelper;
@@ -29,7 +28,6 @@ public final class SetupScript {
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("deviceName", DEVICE_NAME);
         capabilities.setCapability("app", APP);
- 
     	try {                                  
 			setDriver(new AndroidDriver(new URL(APPIUM_DRIVER), capabilities));
 			System.out.println("App Launched successfully");
@@ -46,6 +44,10 @@ public final class SetupScript {
         getDriver().quit();
     }
 
+    public static void resetApp() {
+    	driver.resetApp();
+    }
+    
 	public static AppiumDriver<AndroidElement> getDriver() {
 		return driver;
 	}

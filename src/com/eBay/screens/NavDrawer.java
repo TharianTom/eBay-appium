@@ -8,7 +8,7 @@ public final class NavDrawer extends Screen {
 		super();
 	}
 
-	static Element signInImage = new Element("com.ebay.mobile:id/logo", "id", "scrollDown");
+	static Element signInImage = new Element("com.ebay.mobile:id/logo", "id");
 	
 	public static void touchSignIn(){
 		signInImage.clickElement();

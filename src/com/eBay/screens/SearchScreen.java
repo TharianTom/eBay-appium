@@ -7,8 +7,8 @@ public final class SearchScreen extends Screen{
 	SearchScreen(){
 		super();
 	}
-	static Element searchText = new Element("com.ebay.mobile:id/search_src_text", "id", "noScroll");
-	static Element predictedSearch = new Element("com.ebay.mobile:id/text", "id", "scrollDown");
+	static Element searchText = new Element("com.ebay.mobile:id/search_src_text", "id");
+	static Element predictedSearch = new Element("com.ebay.mobile:id/text", "id");
 
 	
 	public static void amIHere(){

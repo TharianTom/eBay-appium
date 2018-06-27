@@ -4,28 +4,40 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.eBay.runners.SetupScript;
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.android.nativekey.PressesKey;
+import io.appium.java_client.touch.offset.ElementOption;
 
 
 public class Element {
 	private String using;
-	private String scrollDirection;
 	private String by;
 	private AppiumDriver<AndroidElement> driver;
+	private String scrollDirection;
+	private int scrollTimeout;
 
 	
-	public Element(String using, String by, String scrollDirection){
+	public Element(String using, String by){
 		this.using = using;
 		this.by = by;
-		//TODO Specify scroll direction to drag to an element
+		this.scrollDirection = null;
+		this.scrollTimeout = 0;
+		driver = SetupScript.getDriver();
+	}
+	
+	public Element(String using, String by, String scrollDirection, int scrollTimeout){
+		this.using = using;
+		this.by = by;
 		this.scrollDirection = scrollDirection;
+		this.scrollTimeout = scrollTimeout;
 		driver = SetupScript.getDriver();
 	}
 	
@@ -55,7 +67,21 @@ public class Element {
 		driver = SetupScript.getDriver();
 		By by = getElementUsing();
 		System.out.println("Checking Element Present "+ by);
-		driver.findElement(by);
+		if(scrollTimeout>0){
+			for(int i = 0; i< scrollTimeout; i++){
+				try{
+					driver.findElement(by);
+				}catch(NoSuchElementException e){
+					if(scrollDirection.equals("scrollDown")){
+						Screen.scrollDown();
+					} else{
+						Screen.scrollUp();
+					}
+				}
+			}
+		}else{
+			driver.findElement(by);
+		}
 	}
 	
 	public String getText(){
@@ -63,6 +89,14 @@ public class Element {
 		By by = getElementUsing();
 		System.out.println("Getting text "+ by);
 		return driver.findElement(by).getText();
+	}
+	
+	public void hasText(String string){
+		String gotText = getText();
+		System.out.println("Checking if text "+ string + " matches " + gotText);
+		if(!gotText.equals(string)){
+			throw new RuntimeException("No text found with " + string + " for " + by + ", but got text " + gotText); 
+		}
 	}
 	
 	public List<String> getTexts(){
@@ -106,6 +140,16 @@ public class Element {
 		}
 	}
 	
+	@SuppressWarnings("rawtypes")
+	public void scrollTo(Element endElement){
+		driver = SetupScript.getDriver();
+		By startBy = getElementUsing();
+		By endBy = endElement.getElementUsing();
+		ElementOption startElementOption = ElementOption.element(driver.findElement(startBy));
+		ElementOption endElementOption = ElementOption.element(driver.findElement(endBy));
+		new TouchAction(driver).press(startElementOption).moveTo(endElementOption).release().perform();
+	}
+	
 	public void waitForElementToBeAbsent(int timeout){
 		driver = SetupScript.getDriver();
 		By by = getElementUsing();
@@ -128,6 +172,7 @@ public class Element {
         return false;
     }
     
+	@SuppressWarnings("deprecation")
 	public void enterKeyEvent(){	
 		((PressesKey) driver).pressKeyCode(66);
 //		By by = getElementUsing();

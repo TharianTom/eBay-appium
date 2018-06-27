@@ -1,5 +1,6 @@
 package com.eBay.screens;
 
+import com.eBay.helpers.ExcelUtil;
 import com.eBay.wrappers.Element;
 import com.eBay.wrappers.Screen;
 
@@ -8,10 +9,10 @@ public final class HomeScreen extends Screen {
 		super();
 	}
 
-	static Element searchText = new Element("com.ebay.mobile:id/search_box", "id", "swipeDown");
-	static Element homeButton = new Element("com.ebay.mobile:id/home", "id", "noScroll");
-	static Element eBayLogo = new Element("com.ebay.mobile:id/logo", "id", "noScroll");
-	static Element sellingCapsule = new Element("com.ebay.mobile:id/capsule_selling", "id", "noScroll");
+	static Element searchText = new Element("com.ebay.mobile:id/search_box", "id");
+	static Element homeButton = new Element("com.ebay.mobile:id/home", "id");
+	static Element eBayLogo = new Element("com.ebay.mobile:id/logo", "id");
+	static Element sellingCapsule = new Element("com.ebay.mobile:id/capsule_selling", "id");
 	
 	public static void amIHere(int timeout){
 		eBayLogo.waitForElementToBePresent(timeout);
@@ -26,10 +27,10 @@ public final class HomeScreen extends Screen {
 		homeButton.clickElement();
 	}
 	
-	public static void searchText(String searchValue){
+	public static void searchText(){
 		searchText.clickElement();
 		SearchScreen.amIHere();
-		SearchScreen.searchText(searchValue);
+		SearchScreen.searchText(ExcelUtil.getTestData("searchKeyword"));
 	}
 	
 }
