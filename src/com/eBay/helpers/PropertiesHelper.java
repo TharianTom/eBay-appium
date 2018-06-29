@@ -7,22 +7,32 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-
 public final class PropertiesHelper {
-	public static String getProperty(String propertyCategory, String property){
+	/**
+	 * Reads a property file with property file and property category Returns
+	 * the property value
+	 * 
+	 * @param propertyCategory:
+	 *            the properties file name
+	 * @param property:
+	 *            the property parameter
+	 * @return property value
+	 */
+	public static String getProperty(String propertyCategory, String property) {
 		File classpathRoot = new File(System.getProperty("user.dir"));
-		
+
 		Properties prop = new Properties();
 		InputStream input = null;
 		try {
-			
-			input = new FileInputStream(classpathRoot+"/src/resources/properties/"+propertyCategory+".properties");
+
+			input = new FileInputStream(
+					classpathRoot + "/src/resources/properties/" + propertyCategory + ".properties");
 			// load a properties file
 			prop.load(input);
 
 			// get the property value and print it out
-			System.out.println(property +" property value "+prop.getProperty(property));
-			return(prop.getProperty(property));
+			System.out.println(property + " property value " + prop.getProperty(property));
+			return (prop.getProperty(property));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException ex) {
@@ -35,7 +45,7 @@ public final class PropertiesHelper {
 					e.printStackTrace();
 				}
 			}
-		}	
+		}
 		return null;
 	}
 }

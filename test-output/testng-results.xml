@@ -2,41 +2,41 @@
 <testng-results skipped="0" failed="1" ignored="0" total="2" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="122584" started-at="2018-06-29T12:28:30Z" finished-at="2018-06-29T12:30:32Z">
+  <suite name="Default suite" duration-ms="106924" started-at="2018-06-29T14:48:21Z" finished-at="2018-06-29T14:50:08Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="122584" started-at="2018-06-29T12:28:30Z" finished-at="2018-06-29T12:30:32Z">
+    <test name="Default test" duration-ms="106924" started-at="2018-06-29T14:48:21Z" finished-at="2018-06-29T14:50:08Z">
       <class name="com.eBay.tests.SmokeTests">
-        <test-method status="PASS" signature="beforeClassTasks()[pri:0, instance:com.eBay.tests.SmokeTests@1e88b3c]" name="beforeClassTasks" is-config="true" duration-ms="13358" started-at="2018-06-29T12:28:17Z" finished-at="2018-06-29T12:28:30Z">
+        <test-method status="PASS" signature="beforeClassTasks()[pri:0, instance:com.eBay.tests.SmokeTests@1e88b3c]" name="beforeClassTasks" is-config="true" duration-ms="18942" started-at="2018-06-29T14:48:02Z" finished-at="2018-06-29T14:48:21Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- beforeClassTasks -->
-        <test-method status="PASS" signature="beforeTest()[pri:0, instance:com.eBay.tests.SmokeTests@1e88b3c]" name="beforeTest" is-config="true" duration-ms="6775" started-at="2018-06-29T12:28:30Z" finished-at="2018-06-29T12:28:37Z">
+        <test-method status="PASS" signature="beforeTest()[pri:0, instance:com.eBay.tests.SmokeTests@1e88b3c]" name="beforeTest" is-config="true" duration-ms="10752" started-at="2018-06-29T14:48:21Z" finished-at="2018-06-29T14:48:32Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- beforeTest -->
-        <test-method status="PASS" signature="checkoutWithExpensiveItem()[pri:1, instance:com.eBay.tests.SmokeTests@1e88b3c]" name="checkoutWithExpensiveItem" duration-ms="83671" started-at="2018-06-29T12:28:37Z" description="Checkout With Expensive TV in current results screen" finished-at="2018-06-29T12:30:00Z">
+        <test-method status="PASS" signature="checkoutWithExpensiveItem()[pri:1, instance:com.eBay.tests.SmokeTests@1e88b3c]" name="checkoutWithExpensiveItem" duration-ms="61649" started-at="2018-06-29T14:48:32Z" description="Checkout With Expensive TV in current results screen" finished-at="2018-06-29T14:49:33Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- checkoutWithExpensiveItem -->
-        <test-method status="PASS" signature="afterTest()[pri:0, instance:com.eBay.tests.SmokeTests@1e88b3c]" name="afterTest" is-config="true" duration-ms="915" started-at="2018-06-29T12:30:03Z" finished-at="2018-06-29T12:30:04Z">
+        <test-method status="PASS" signature="afterTest()[pri:0, instance:com.eBay.tests.SmokeTests@1e88b3c]" name="afterTest" is-config="true" duration-ms="1358" started-at="2018-06-29T14:49:36Z" finished-at="2018-06-29T14:49:37Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- afterTest -->
-        <test-method status="PASS" signature="beforeTest()[pri:0, instance:com.eBay.tests.SmokeTests@1e88b3c]" name="beforeTest" is-config="true" duration-ms="7589" started-at="2018-06-29T12:30:04Z" finished-at="2018-06-29T12:30:12Z">
+        <test-method status="PASS" signature="beforeTest()[pri:0, instance:com.eBay.tests.SmokeTests@1e88b3c]" name="beforeTest" is-config="true" duration-ms="8935" started-at="2018-06-29T14:49:37Z" finished-at="2018-06-29T14:49:46Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- beforeTest -->
-        <test-method status="FAIL" signature="failingTestCase()[pri:2, instance:com.eBay.tests.SmokeTests@1e88b3c]" name="failingTestCase" duration-ms="19626" started-at="2018-06-29T12:30:12Z" description="Failng Test Case" finished-at="2018-06-29T12:30:31Z">
+        <test-method status="FAIL" signature="failingTestCase()[pri:2, instance:com.eBay.tests.SmokeTests@1e88b3c]" name="failingTestCase" duration-ms="19039" started-at="2018-06-29T14:49:46Z" description="Failng Test Case" finished-at="2018-06-29T14:50:05Z">
           <exception class="java.lang.RuntimeException">
             <message>
               <![CDATA[Element com.ebay.mobile:id/edit_text_username is present in screen]]>
             </message>
             <full-stacktrace>
               <![CDATA[java.lang.RuntimeException: Element com.ebay.mobile:id/edit_text_username is present in screen
-at com.eBay.wrappers.Element.elementNotPresent(Element.java:68)
-at com.eBay.screens.SignInScreen.amINotHere(SignInScreen.java:24)
-at com.eBay.tests.SmokeTests.failingTestCase(SmokeTests.java:69)
+at com.eBay.wrappers.Element.elementNotPresent(Element.java:108)
+at com.eBay.screens.SignInScreen.amINotHere(SignInScreen.java:32)
+at com.eBay.tests.SmokeTests.failingTestCase(SmokeTests.java:66)
 at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -68,11 +68,11 @@ at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
           <reporter-output>
           </reporter-output>
         </test-method> <!-- failingTestCase -->
-        <test-method status="PASS" signature="afterTest()[pri:0, instance:com.eBay.tests.SmokeTests@1e88b3c]" name="afterTest" is-config="true" duration-ms="660" started-at="2018-06-29T12:30:32Z" finished-at="2018-06-29T12:30:32Z">
+        <test-method status="PASS" signature="afterTest()[pri:0, instance:com.eBay.tests.SmokeTests@1e88b3c]" name="afterTest" is-config="true" duration-ms="1350" started-at="2018-06-29T14:50:06Z" finished-at="2018-06-29T14:50:08Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- afterTest -->
-        <test-method status="PASS" signature="afterClassTasks()[pri:0, instance:com.eBay.tests.SmokeTests@1e88b3c]" name="afterClassTasks" is-config="true" duration-ms="1852" started-at="2018-06-29T12:30:32Z" finished-at="2018-06-29T12:30:34Z">
+        <test-method status="PASS" signature="afterClassTasks()[pri:0, instance:com.eBay.tests.SmokeTests@1e88b3c]" name="afterClassTasks" is-config="true" duration-ms="4189" started-at="2018-06-29T14:50:08Z" finished-at="2018-06-29T14:50:12Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- afterClassTasks -->

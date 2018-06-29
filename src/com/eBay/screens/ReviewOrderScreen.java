@@ -10,12 +10,13 @@ public final class ReviewOrderScreen extends Screen {
 	static Element deliveryTitle = new Element("//android.view.View[@text='Delivery address']", "xpath");
 	static Element alternativeDeliveryTitle = new Element("//android.view.View[@text='Delivery Address']", "xpath");
 	static Element progressLayout = new Element("com.ebay.mobile:id/progress_layout", "id");
-	static Element itemName = new Element("android.view.View", "class", "scrollDown", 2);
-	
-	 
-
-	public static void amIHere(int timeout) {
-		progressLayout.waitForElementToBeAbsent(timeout);
+	static Element webView = new Element("android.view.View", "class", "scrollDown", 2);
+	static int loadTimeout = 20;
+	/*
+	 * Always use the method while navigating to review screen
+	 */
+	public static void amIHere() {
+		progressLayout.waitForElementToBeAbsent(loadTimeout);
 		try {
 			deliveryTitle.elementPresent();
 		} catch (NoSuchElementException e) {
@@ -26,10 +27,7 @@ public final class ReviewOrderScreen extends Screen {
 
 	public static void validateProductDetails() {
 		String product = ExcelUtil.getTestData("productName");
-		itemName.hasText(product);
-		product = product.replaceAll("'", "&apos;");
-		//Element productElement = new Element("//android.view.View[@text='SONY 65 INCHES 65X7000E 4k UHD HDR SMART LED TV + ONE YEAR DEALER\'S WARRANTY']", "xpath", "scrollDown", 2);
-		//productElement.elementPresent();
+		webView.hasText(product);
 	}
 
 }

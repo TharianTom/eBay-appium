@@ -10,13 +10,13 @@ import com.eBay.runners.SetupScript;
 public class BaseTest {
 
 	@BeforeSuite
-    public void beforeClassTasks() throws IOException{
-    	SetupScript.setUp();
-    }
+	public void beforeClassTasks() throws IOException {
+		SetupScript.setUp();
+	}
 
-    @AfterSuite
-    public void afterClassTasks() {
-    	SetupScript.tearDown();
-    }
-    
+	@AfterSuite
+	public void afterClassTasks() {
+		SetupScript.tearDown();
+	}
+
 }
