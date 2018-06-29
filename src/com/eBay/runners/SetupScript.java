@@ -15,7 +15,7 @@ import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.android.StartsActivity;
 
 public final class SetupScript {
-	private static AppiumDriver<AndroidElement> driver;
+	private static AppiumDriver driver;
 	private static String DEVICE_NAME = PropertiesHelper.getProperty("DesiredCapabilities", "deviceName");
 	private static String APP = System.getProperty("user.dir") + PropertiesHelper.getProperty("DesiredCapabilities", "app");
 	private static String APPIUM_DRIVER = PropertiesHelper.getProperty("DesiredCapabilities", "appiumDriver");
@@ -40,6 +40,10 @@ public final class SetupScript {
     	((StartsActivity) driver).startActivity(new Activity(APP_PACKAGE, APP_ACTIVITY));
     }
     
+    public static void stopActivity(){
+    	driver.closeApp();
+    }
+    
     public static void tearDown() {
         getDriver().quit();
     }
@@ -48,12 +52,13 @@ public final class SetupScript {
     	driver.resetApp();
     }
     
-	public static AppiumDriver<AndroidElement> getDriver() {
+	public static AppiumDriver getDriver() {
 		return driver;
 	}
 
-	private static void setDriver(AppiumDriver<AndroidElement> driver) {
+	private static void setDriver(AppiumDriver driver) {
 		SetupScript.driver = driver;
 	}
 	
+
 }

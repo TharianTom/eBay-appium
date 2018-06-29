@@ -26,16 +26,19 @@ public final class ResultsScreen extends Screen{
 	public static void touchMostExpensive(){
 		List<String> pricesInString = itemPrice.getTexts();
 		List<Integer> prices = new ArrayList<Integer>();
+		String currency = new String();
 		for(String priceInString: pricesInString){
-			priceInString = priceInString.replace("₹","");
+			priceInString = priceInString.replace(",","");
+			currency = priceInString.replaceAll("[0-9]","");		
+			priceInString = priceInString.replaceAll(currency,"");
 			priceInString = priceInString.replace(",","");
 			prices.add(Integer.valueOf(priceInString));
 		}	
 		Integer expensiveItemPrice = Collections.max(prices);
 		String expensiveItemPriceInString = NumberFormat.getNumberInstance(Locale.US).format(expensiveItemPrice);
-		expensiveItemPriceInString = "₹" + expensiveItemPriceInString; 
-		Element expensiveItem = new Element("//android.widget.TextView[@text='"+expensiveItemPriceInString+"']", "xpath");
+		expensiveItemPriceInString = currency + expensiveItemPriceInString; 
+		Element expensiveItem = new Element("//android.widget.TextView[@text='"+expensiveItemPriceInString+"']", "xpath", "scrollDown", 3);
 		expensiveItem.clickElement();
-		ExcelUtil.setTestData("productPrice", expensiveItemPriceInString);
+		ExcelUtil.setTestData("productPrice", expensiveItemPriceInString.toString());
 	}
 }

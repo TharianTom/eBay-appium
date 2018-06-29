@@ -8,19 +8,19 @@ import com.eBay.runners.SetupScript;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
-import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
 
+@SuppressWarnings("rawtypes")
 public class Screen {
 	private static Dimension screenDimensions;
-	private static AppiumDriver<AndroidElement> driver;
+	private static AppiumDriver driver;
+	private static int loadTimeout;
 	
 	protected Screen(){
 
 	}
 	
-	@SuppressWarnings("rawtypes")
 	public static void swipeRight(){
 		driver = SetupScript.getDriver();
 		screenDimensions = driver.manage().window().getSize();
@@ -52,7 +52,7 @@ public class Screen {
 		new TouchAction(driver).press(startPoint).waitAction(startTime).moveTo(endPoint).waitAction(endTime).release().perform();
 	}
 	
-	@SuppressWarnings("rawtypes")
+	
 	public static void scrollUp(){
 		driver = SetupScript.getDriver();
 		screenDimensions = driver.manage().window().getSize();
@@ -66,6 +66,11 @@ public class Screen {
 		WaitOptions startTime = WaitOptions.waitOptions(Duration.ofMillis(1000));
 		WaitOptions endTime = WaitOptions.waitOptions(Duration.ofMillis(10));
 		new TouchAction(driver).press(startPoint).waitAction(startTime).moveTo(endPoint).waitAction(endTime).release().perform();
+	}
+	
+	public static void getPageSource(){
+		driver = SetupScript.getDriver();
+		System.out.println("Printing Source "+ driver.getPageSource());
 	}
 
 }

@@ -16,11 +16,11 @@ import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.android.nativekey.PressesKey;
 import io.appium.java_client.touch.offset.ElementOption;
 
-
+@SuppressWarnings("rawtypes")
 public class Element {
 	private String using;
 	private String by;
-	private AppiumDriver<AndroidElement> driver;
+	private AppiumDriver driver;
 	private String scrollDirection;
 	private int scrollTimeout;
 
@@ -54,7 +54,7 @@ public class Element {
 	
 	public Boolean ifElementPresent(){
 		By by = getElementUsing();
-		System.out.println("If element present" + by);
+		System.out.println("If element present " + by);
 		try{
 			driver.findElement(by);
 		}catch(Exception e){
@@ -62,6 +62,24 @@ public class Element {
 		}
 		return true;
 	}
+	
+	public void elementNotPresent(){
+		if(ifElementPresent()){
+			throw new RuntimeException("Element "+ using + " is present in screen");
+		}
+	}
+	
+	public Boolean ifElementDisplayed(){
+		By by = getElementUsing();
+		System.out.println("If element displayed " + by);
+		try{
+			System.out.println("If element displayed " + driver.findElement(by).isDisplayed());
+			return driver.findElement(by).isDisplayed();
+		}catch(Exception e){
+			return false;
+		}
+	}
+
 	
 	public void elementPresent(){
 		driver = SetupScript.getDriver();
@@ -71,6 +89,7 @@ public class Element {
 			for(int i = 0; i< scrollTimeout; i++){
 				try{
 					driver.findElement(by);
+					break;
 				}catch(NoSuchElementException e){
 					if(scrollDirection.equals("scrollDown")){
 						Screen.scrollDown();
@@ -79,6 +98,7 @@ public class Element {
 					}
 				}
 			}
+			driver.findElement(by);
 		}else{
 			driver.findElement(by);
 		}
@@ -92,11 +112,34 @@ public class Element {
 	}
 	
 	public void hasText(String string){
-		String gotText = getText();
-		System.out.println("Checking if text "+ string + " matches " + gotText);
-		if(!gotText.equals(string)){
-			throw new RuntimeException("No text found with " + string + " for " + by + ", but got text " + gotText); 
+		System.out.println("Checking if text "+ string + " exists");
+		if(scrollTimeout>0){
+			for(int i = 0; i< scrollTimeout; i++){
+				if(!ifTextPresent(string)){
+					if(scrollDirection.equals("scrollDown")){
+						Screen.scrollDown();
+					} else{
+						Screen.scrollUp();
+					}
+				}
+			}
+			if(!ifTextPresent(string)){
+				throw new RuntimeException("No text found with " + string + " for " + by + ", but got text " + gotText); 
+			}
+		}else{
+			if(!ifTextPresent(string)){
+				throw new RuntimeException("No text found with " + string + " for " + by + ", but got text " + gotText); 
+			} 
 		}
+	}
+	
+	public boolean ifTextPresent(String string){
+		List<String> gotText = getTexts();
+		System.out.println("Checking if text "+ string + " matches " + gotText);
+		if(!gotText.contains(string)){
+			return false; 
+		}
+		return true;
 	}
 	
 	public List<String> getTexts(){
@@ -113,10 +156,11 @@ public class Element {
 	}
 	
 	public void clickElement(){
+		elementPresent();
 		driver = SetupScript.getDriver();
 		By by = getElementUsing();
 		System.out.println("Clicking "+ by);
-		driver.findElement(by).click();;
+		driver.findElement(by).click();
 	}
 	
 	public void sendKeys(String text){
@@ -140,7 +184,6 @@ public class Element {
 		}
 	}
 	
-	@SuppressWarnings("rawtypes")
 	public void scrollTo(Element endElement){
 		driver = SetupScript.getDriver();
 		By startBy = getElementUsing();
@@ -154,19 +197,19 @@ public class Element {
 		driver = SetupScript.getDriver();
 		By by = getElementUsing();
 		System.out.println("Waiting for " + by + " to be absent");
-		WebDriverWait wait = new WebDriverWait(driver, timeout);
-		try{
-			wait.until(ExpectedConditions.not(ExpectedConditions.visibilityOfElementLocated(by)));
-		}catch(Exception e){
-		}
-//		long currentTime = System.currentTimeMillis();
-//		while(ifElementPresent() && notTimedOut(currentTime,timeout)){
-//			System.out.println("Waiting for " + by + " to be absent");
+//		WebDriverWait wait = new WebDriverWait(driver, timeout);
+//		try{
+//			wait.until(ExpectedConditions.not(ExpectedConditions.visibilityOfElementLocated(by)));
+//		}catch(Exception e){
 //		}
+		long currentTime = System.currentTimeMillis();
+		while(ifElementPresent()  && notTimedOut(currentTime,timeout)){
+		}
 	}
 	
     public static boolean notTimedOut(long startTime, long waitTime) {
-        if (System.currentTimeMillis() < (waitTime * 1000) + startTime) {
+    	long expectedTime = (waitTime * 1000) + startTime;
+        if (System.currentTimeMillis() < expectedTime) {
             return true;
         }
         return false;

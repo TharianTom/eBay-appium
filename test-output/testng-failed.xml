@@ -7,6 +7,7 @@
         <methods>
           <include name="beforeTest"/>
           <include name="afterClassTasks"/>
+          <include name="afterTest"/>
           <include name="failingTestCase"/>
           <include name="beforeClassTasks"/>
         </methods>

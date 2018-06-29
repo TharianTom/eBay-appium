@@ -15,9 +15,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Iterator;
 
-import com.eBay.wrappers.BaseTest;
-import com.eBay.wrappers.TestMethodCapture;
-
 public class ExcelUtil {
     //Main Directory of the project
     public static final String currentDir = System.getProperty("user.dir");
@@ -182,14 +179,14 @@ public class ExcelUtil {
     }
     
     public static String getTestData(String columnTitle){
-    	String testCase = TestMethodCapture.getTestMethod().getMethodName();
+    	String testCase = TestListener.getTestMethod().getMethodName();
     	int testRowIndex = getTestRow(testCase);
     	int dataColumnIndex = getDataColumn(columnTitle);
         return getCellData(testRowIndex,dataColumnIndex);
     }
     
     public static void setTestData(String columnTitle, String data){
-    	String testCase = TestMethodCapture.getTestMethod().getMethodName();
+    	String testCase = TestListener.getTestMethod().getMethodName();
     	int testRowIndex = getTestRow(testCase);
     	int dataColumnIndex = getDataColumn(columnTitle);
         setCellData(data, testRowIndex, dataColumnIndex);

@@ -2,11 +2,13 @@ package com.eBay.tests;
 
 
 
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import com.eBay.helpers.ExcelUtil;
+import com.eBay.helpers.TestListener;
 import com.eBay.runners.SetupScript;
 import com.eBay.screens.HomeScreen;
 import com.eBay.screens.NavDrawer;
@@ -16,9 +18,8 @@ import com.eBay.screens.ResultsScreen;
 import com.eBay.screens.ReviewOrderScreen;
 import com.eBay.screens.SignInScreen;
 import com.eBay.wrappers.BaseTest;
-import com.eBay.wrappers.TestMethodCapture;
 
-@Listeners(TestMethodCapture.class)
+@Listeners(TestListener.class)
 public final class SmokeTests extends BaseTest {
 	
 	@BeforeMethod
@@ -26,6 +27,11 @@ public final class SmokeTests extends BaseTest {
 		SetupScript.setupTest();	
 		ExcelUtil.setExcelFileSheet("SmokeTests");
 		SetupScript.resetApp();
+	}
+	
+	@AfterMethod
+	public void afterTest() throws Exception {
+		SetupScript.stopActivity();;	
 	}
 	
 	@Test(priority = 1, description = "Checkout With Expensive TV in current results screen")
@@ -53,7 +59,7 @@ public final class SmokeTests extends BaseTest {
     	ReviewOrderScreen.validateProductDetails();
     }
 	
-	@Test(priority = 2, description = "Faling Test Case")
+	@Test(priority = 2, description = "Failng Test Case")
     public void failingTestCase() {
     	HomeScreen.amIHere(10);
     	//HomeScreen.swipeRight();
@@ -63,6 +69,5 @@ public final class SmokeTests extends BaseTest {
     	SignInScreen.amINotHere(20);
     	SignInScreen.dismissGreeting();
     	HomeScreen.amIHere(20);
-    	
 	}
 }
